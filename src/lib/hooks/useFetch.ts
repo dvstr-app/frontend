@@ -23,6 +23,7 @@ const useFetch = () => {
       // credentials: "include",
       headers,
       body,
+      cache: "no-cache",
     })
       .then(async (resp) => {
         if (resp.ok) return resp.json();
