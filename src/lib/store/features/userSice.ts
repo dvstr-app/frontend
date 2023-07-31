@@ -60,8 +60,7 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       const user = action.payload;
-      console.log(user);
-      if ("pk" in user) {
+      if (user && "pk" in user) {
         state.user = user;
         if (user) localStorage.setItem("user", JSON.stringify(user));
       } else localStorage.removeItem("user");

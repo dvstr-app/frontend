@@ -1,6 +1,10 @@
 "use client";
 import useFetch from "@/lib/hooks/useFetch";
-import { fetchUser, setUser, userSelector } from "@/lib/store/features/userSice";
+import {
+  fetchUser,
+  setUser,
+  userSelector,
+} from "@/lib/store/features/userSice";
 import loadFromLocalstorage from "@/lib/store/loadFromLocalstorage";
 import { useAppDispatch, useAppSelector } from "@/lib/store/store";
 import Link from "next/link";
@@ -14,8 +18,9 @@ const UserPanel = () => {
   const { _fetch } = useFetch();
 
   useEffect(() => {
-    dispatch(setUser(JSON.parse(loadFromLocalstorage("user", "{}"))));
-    dispatch(fetchUser());
+    const user = JSON.parse(loadFromLocalstorage("user", "{}"));
+    dispatch(setUser(user));
+    if (user && "pk" in user) dispatch(fetchUser());
   }, []);
 
   return isAuthenticated ? (

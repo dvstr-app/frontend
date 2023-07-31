@@ -13,7 +13,7 @@ const routeHandler = async (request: NextRequest, path: string[]) => {
   });
   if (resp.ok) {
     const data = await resp.json();
-    
+
     return NextResponse.json(data);
   }
   //   if (resp.status === 401) {
@@ -38,7 +38,7 @@ const routeHandler = async (request: NextRequest, path: string[]) => {
   //     .then((data) => data);
   //   console.log(data);
 
-  return NextResponse.json(error);
+  return NextResponse.json({ error }, { status: resp.status });
 };
 
 export async function GET(

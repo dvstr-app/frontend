@@ -16,8 +16,12 @@ import ScheduleDay from "./ScheduleDay";
 import { Recipe, ScheduleSlot } from "../types";
 import useFetch from "@/lib/hooks/useFetch";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useAppSelector } from "@/lib/store/store";
+import { userSelector } from "@/lib/store/features/userSice";
+import Link from "next/link";
 
 const ScheduleEditor = () => {
+  const { isAuthenticated } = useAppSelector((state) => userSelector(state));
   const { _fetch } = useFetch();
   const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot>(
     {} as ScheduleSlot
@@ -49,7 +53,6 @@ const ScheduleEditor = () => {
         setSelectedSlot({ date: selectedSlot.date });
         setSelectedRecipe({} as Recipe);
         console.log("done");
-        
       });
     }
   };
@@ -58,7 +61,7 @@ const ScheduleEditor = () => {
     lockInMeal();
   }, [selectedRecipe, selectedSlot]);
 
-  return (
+  return isAuthenticated ? (
     <DialogRoot>
       <DialogTrigger asChild>
         <p className="text-sm font-medium p-2 text-blue-500 hover:text-white hover:bg-blue-500 rounded hover:shadow cursor-pointer duration-150">
@@ -97,6 +100,13 @@ const ScheduleEditor = () => {
         </DialogContent>
       </DialogPortal>
     </DialogRoot>
+  ) : (
+    <Link
+      href="/login"
+      className="text-sm font-medium p-2 text-blue-500 hover:text-white hover:bg-blue-500 rounded hover:shadow cursor-pointer duration-150"
+    >
+      Log In to Edit
+    </Link>
   );
 };
 

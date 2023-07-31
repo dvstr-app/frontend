@@ -6,8 +6,11 @@ import useFetch from "@/lib/hooks/useFetch";
 import { headers } from "next/headers";
 import { API_URL } from "@/lib/const";
 import ScheduleEditor from "./ScheduleEditor";
+import { useAppSelector } from "@/lib/store/store";
+import { userSelector } from "@/lib/store/features/userSice";
 
 const ScheduleToday = () => {
+  const { isAuthenticated } = useAppSelector((state) => userSelector(state));
   const [schedule, setSchedule] = useState<Schedule>({} as Schedule);
   const { loading, error, _fetch } = useFetch();
 
@@ -17,9 +20,10 @@ const ScheduleToday = () => {
     //     console.log(data);
     //   }
     // );
-    _fetch("/api/schedules/today", {}).then((data: Schedule) =>
-      setSchedule(data)
-    );
+    isAuthenticated &&
+      _fetch("/api/schedules/today", {})
+        .then((data: Schedule) => setSchedule(data))
+        .catch((error) => console.log(error));
   }, []);
 
   return (

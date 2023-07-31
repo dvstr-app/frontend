@@ -75,12 +75,14 @@ const AppCard = ({ app }: { app: App }) => {
 
 const AppsIndex = () => {
   const { _fetch } = useFetch();
-  const [apps, setApps] = useState([]);
+  const [apps, setApps] = useState<App[]>([]);
   useEffect(() => {
-    _fetch("/api/apps/", {}).then((data) => {
-      setApps(data);
-    });
-  }, [setApps]);
+    _fetch("/api/apps/", {})
+      .then((data) => {
+        setApps(data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <div className="mt-12 w-full flex justify-center">

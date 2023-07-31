@@ -29,6 +29,7 @@ const useFetch = () => {
         const error = await resp.text();
         setLoading(false);
         setError(error);
+        throw new Error(error);
       })
       .then((data) => {
         setLoading(false);
