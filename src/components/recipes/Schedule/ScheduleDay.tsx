@@ -33,9 +33,11 @@ const ScheduleDay = ({ slot, setSlot, date }: Props) => {
   const show = fullDate === slot?.date;
 
   useEffect(() => {
-    _fetch(`/api/schedules/${fullDate}`, {}).then((schedule) =>
-      setSchedule(schedule)
-    );
+    _fetch(`/api/schedules/${fullDate}`, {})
+      .then((schedule) => setSchedule(schedule))
+      .catch((error) => {
+        console.log(error);
+      });
   }, [slot]);
 
   return (

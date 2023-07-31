@@ -18,9 +18,11 @@ const UserPanel = () => {
   const { _fetch } = useFetch();
 
   useEffect(() => {
-    const user = JSON.parse(loadFromLocalstorage("user", "{}"));
-    dispatch(setUser(user));
-    if (user && "pk" in user) dispatch(fetchUser());
+    console.log(isAuthenticated, user);
+
+    const userObject = JSON.parse(loadFromLocalstorage("user", "{}"));
+    dispatch(setUser(userObject));
+    if (userObject && "pk" in userObject) dispatch(fetchUser());
   }, []);
 
   return isAuthenticated ? (

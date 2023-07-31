@@ -70,8 +70,11 @@ export const userSlice = createSlice({
 
 // const theme = (state: RootState) => state.theme;
 const user = (state: RootState) => state.user;
-export const userSelector = createSelector([user], (user) => {
-  return { user: user.user, isAuthenticated: !!user.user.id };
+export const userSelector = createSelector([user], (state) => {
+  return {
+    user: state.user,
+    isAuthenticated: !!Object.keys(state.user).length,
+  };
 });
 // export const isUserAuthenticated = createSelector([user], (user) => !!user.user.pk);
 // export const themeModeSelector = createSelector([theme], (theme) => theme.mode);
