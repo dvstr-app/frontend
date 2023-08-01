@@ -43,7 +43,7 @@ const ScheduleEditor = () => {
     // create/update a schedule
     // _fetch();
     if (selectedSlot.date && selectedSlot.meal && selectedRecipe.id) {
-      _fetch(`/api/schedules/${selectedSlot.date}/`, {
+      fetch(`/api/schedules/${selectedSlot.date}/`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ [selectedSlot.meal]: selectedRecipe.id }),

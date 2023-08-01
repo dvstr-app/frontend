@@ -20,10 +20,11 @@ const ScheduleToday = () => {
     //     console.log(data);
     //   }
     // );
-    isAuthenticated &&
-      _fetch("/api/schedules/today", {})
-        .then((data: Schedule) => setSchedule(data))
-        .catch((error) => console.log(error));
+
+    fetch("/api/schedules/today")
+      .then((resp) => resp.json())
+      .then((data: Schedule) => setSchedule(data))
+      .catch((error) => console.log(error));
   }, []);
 
   return (

@@ -5,6 +5,19 @@ import { NextResponse, NextRequest } from "next/server";
 const routeHandler = async (request: NextRequest, path: string[]) => {
   //   const req = await request.json();
   //   const { query } = req;
+  return fetch(API_URL + path.join("/") + "/", {
+    method: request.method,
+    headers: request.headers,
+    body: request.body,
+    referrer: request.referrer,
+    referrerPolicy: request.referrerPolicy,
+    mode: request.mode,
+    credentials: request.credentials,
+    cache: request.cache,
+    redirect: request.redirect,
+    integrity: request.integrity,
+    ...{ duplex: "half" },
+  });
   const resp = await fetch(API_URL + path.join("/") + "/", {
     method: request.method,
     headers: request.headers,

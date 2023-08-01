@@ -18,7 +18,9 @@ const RecipeFinder = ({ onSelect, selectedRecipe }: Props) => {
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (value.trim().length >= 3) {
-      _fetch("/api/recipes/", {}).then((recipes) => setRecipes(recipes));
+      fetch("/api/recipes/")
+        .then((resp) => resp.json())
+        .then((recipes) => setRecipes(recipes));
     }
   };
 
