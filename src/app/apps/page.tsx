@@ -74,10 +74,11 @@ const AppCard = ({ app }: { app: App }) => {
 };
 
 const AppsIndex = () => {
-  const { _fetch } = useFetch();
+  // const { _fetch } = useFetch();
   const [apps, setApps] = useState<App[]>([]);
   useEffect(() => {
-    _fetch("/api/apps/", {})
+    fetch("/api/apps/", {})
+      .then((resp) => resp.json())
       .then((data) => {
         setApps(data);
       })
